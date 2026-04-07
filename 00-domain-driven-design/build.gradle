@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+
+    // Lombok
+    id 'io.freefair.lombok' version '9.2.0'
+}
+
+group = 'dio'
+version = '0.0.1-SNAPSHOT'
+description = 'catalog'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    // Apache Commons Validator
+    implementation 'commons-validator:commons-validator:1.10.1'
+
+    // Spring REST Client
+    implementation 'org.springframework.boot:spring-boot-restclient'
+    implementation 'tools.jackson.core:jackson-databind:3.1.0'
+
+    // Spring Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'org.postgresql:postgresql:42.7.10'
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+    // Testcontainers
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter:2.0.4'
+    testImplementation 'org.testcontainers:postgresql:1.21.4'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+test {
+    jvmArgs "-javaagent:${configurations.testRuntimeClasspath.find { it.name.contains('mockito-core') }}", '-Xshare:off'
+}

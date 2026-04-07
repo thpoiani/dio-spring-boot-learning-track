@@ -1,0 +1,142 @@
+{
+  "uuid": "4ebd88b4-7021-4f6a-a9d0-469fee395bbe",
+  "lastMigration": 33,
+  "name": "AML Mock API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3002,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "b43d55fe-bfd4-4044-8133-5b2d286f5c4e",
+      "method": "get",
+      "endpoint": "aml/v1/screening/:registrationNumber",
+      "responses": [
+        {
+          "uuid": "a2ebca1f-c4d5-4720-8702-7855e398ade1",
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{{!-- riskLevel --}}\r\n{{setVar 'riskLevel' (oneOf (array 'LOW' 'MEDIUM' 'HIGH'))}}\r\n{{!-- score --}}\r\n{{#if (eq (getVar 'riskLevel') 'LOW')}}\r\n  {{setVar 'score' (faker 'number.int' min=0 max=30)}}\r\n{{else if (eq (getVar 'riskLevel') 'MEDIUM')}}\r\n  {{setVar 'score' (faker 'number.int' min=31 max=60)}}\r\n{{else}}\r\n  {{setVar 'score' (faker 'number.int' min=61 max=100)}}\r\n{{/if}}\r\n{{!-- isPepUser --}}\r\n{{#if (eq (getVar 'riskLevel') 'HIGH')}}\r\n  {{setVar 'isPepUser' true}}\r\n{{/if}}\r\n{{#if (eq (getVar 'riskLevel') 'MEDIUM')}}\r\n  {{setVar 'isPepUser' (boolean)}}\r\n{{/if}}\r\n{{#if (eq (getVar 'riskLevel') 'LOW')}}\r\n  {{setVar 'isPepUser' false}}\r\n{{/if}}\r\n{{!-- AML flags base --}}\r\n{{setVar 'amlFlags' (array \r\n  'SANCTIONS_MATCH'\r\n  'ADVERSE_MEDIA'\r\n  'HIGH_RISK_COUNTRY'\r\n  'SUSPICIOUS_ACTIVITY'\r\n  'STRUCTURING'\r\n  'HIGH_VALUE_EXPECTED'\r\n)}}\r\n{{#if (eq (getVar 'riskLevel') 'HIGH')}}\r\n  {{setVar 'flagCount' (faker 'number.int' min=1 max=5)}}\r\n{{else if (eq (getVar 'riskLevel') 'MEDIUM')}}\r\n  {{setVar 'flagCount' (faker 'number.int' min=1 max=3)}}\r\n{{else}}\r\n  {{setVar 'flagCount' (faker 'number.int' min=0 max=1)}}\r\n{{/if}}\r\n{{setVar 'selectedFlags' (slice (getVar 'amlFlags') 0 (getVar 'flagCount'))}}\r\n{{#if (getVar 'isPepUser')}}\r\n  {{setVar 'selectedFlags' (concat (getVar 'selectedFlags') (array 'PEP_ASSOCIATED'))}}\r\n{{/if}}\r\n{\r\n  \"riskLevel\": \"{{getVar 'riskLevel'}}\",\r\n  \"riskScore\": {{getVar 'score'}},\r\n  \"flags\": {{{someOf (getVar 'selectedFlags') 5 5 true}}},\r\n  \"pep\": {\r\n    \"isPep\": {{getVar 'isPepUser'}},\r\n    \"occurrences\": [\r\n      {{#if (getVar 'isPepUser')}}\r\n        {{#repeat (faker 'number.int' min=1 max=3)}}\r\n        {\r\n          \"personName\": \"{{faker 'person.fullName'}}\",\r\n          \"position\": \"{{faker 'person.jobTitle'}}\"\r\n        }{{#unless @last}},{{/unless}}\r\n        {{/repeat}}\r\n      {{/if}}\r\n    ]\r\n  }\r\n}\r\n",
+          "latency": 0,
+          "crudKey": "id",
+          "callbacks": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "type": "http",
+      "documentation": "",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "9986db9e-bda3-42e8-8c98-62d058c9e319",
+      "type": "http",
+      "documentation": "\"Guard\" route protecting all routes",
+      "method": "all",
+      "endpoint": "*",
+      "responses": [
+        {
+          "uuid": "484fc4d8-524e-4e71-baaf-f84cadecd277",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Requires the presence of an 'Authorization' header",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "operator": "equals",
+              "invert": true,
+              "value": "Bearer xyz123"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": "FALLBACK",
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "9986db9e-bda3-42e8-8c98-62d058c9e319"
+    },
+    {
+      "type": "route",
+      "uuid": "b43d55fe-bfd4-4044-8133-5b2d286f5c4e"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

@@ -1,0 +1,213 @@
+{
+  "uuid": "a5a9b8b2-100d-416a-b3ac-8524d99fdea0",
+  "lastMigration": 33,
+  "name": "KYC Mock API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "78e54c7f-9f4a-4b2e-930b-b59a12d98a44",
+      "endpoint": "sanctions/companies/:registrationNumber",
+      "method": "get",
+      "responses": [
+        {
+          "uuid": "0f00886a-ce4d-4e4a-84de-45947aa234d2",
+          "label": "Empresa sem Riscos",
+          "statusCode": 200,
+          "body": "{\n  \"matches\": []\n}",
+          "latency": 0,
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "22f41ae0-ab35-44a2-abed-065eb647c4d3",
+          "label": "Empresa Sancionada",
+          "statusCode": 200,
+          "body": "{\n  \"matches\": [\n    {\n      \"entity\": \"{{urlParam 'registrationNumber'}}\",\n      \"list\": \"OFAC SDN List\",\n      \"reason\": \"Financing of Prohibited Entities\",\n      \"confidenceScore\": 0.98\n    }\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "b3312fca-37f8-4f11-b1ef-3fbe7ab979e2",
+          "label": "Cenário de Alta Latência",
+          "statusCode": 200,
+          "body": "{\n  \"matches\": []\n}",
+          "latency": 10000,
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "1308a9f7-0d8d-4fca-89e2-e004ab6e4e3e",
+          "label": "Falha no Servidor Externo",
+          "statusCode": 500,
+          "body": "{\n  \"error\": \"Internal Server Error\"\n}",
+          "latency": 0,
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7fb6c1db-d74f-4d32-ae80-365ff243a671",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Empresa nao encontrada",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "documentation": "",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "38575e3c-c0e1-491a-ae9f-2921586a1bb1",
+      "type": "http",
+      "documentation": "\"Guard\" route protecting all routes",
+      "method": "all",
+      "endpoint": "*",
+      "responses": [
+        {
+          "uuid": "9730af18-be9d-46e7-998b-61ef2e1c9332",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Requires the presence of an 'Authorization' header",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "X-API-KEY",
+              "operator": "equals",
+              "invert": true,
+              "value": "kyc-secret-123"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": "FALLBACK",
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "38575e3c-c0e1-491a-ae9f-2921586a1bb1"
+    },
+    {
+      "type": "route",
+      "uuid": "78e54c7f-9f4a-4b2e-930b-b59a12d98a44"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

@@ -1,0 +1,88 @@
+services:
+  registration-database:
+    image: mysql:9.6
+    environment:
+      MYSQL_DATABASE: registration
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+    ports:
+      - "3307:3306"
+    volumes:
+      - registration_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uapp", "-papp" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  catalog-database:
+    image: mysql:9.6
+    environment:
+      MYSQL_DATABASE: catalog
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+    ports:
+      - "3308:3306"
+    volumes:
+      - catalog_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uapp", "-papp" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  catalog-metadata-database:
+    image: mongo:8.2
+    ports:
+      - "27018:27017"
+    volumes:
+      - metadata_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  catalog-cache:
+    image: redis:8.6
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  ticketing-database:
+    image: postgres:18.3
+    environment:
+      POSTGRES_DB: ticketing
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5433:5432"
+    volumes:
+      - ticketing_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U app -d ticketing" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  ticketing-locking:
+    image: redis:8.6
+    ports:
+      - "6381:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  registration_data:
+  catalog_data:
+  metadata_data:
+  ticketing_data:

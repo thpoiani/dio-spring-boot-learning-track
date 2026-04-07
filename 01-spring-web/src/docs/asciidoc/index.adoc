@@ -1,0 +1,100 @@
+= API de Tarefas
+:toc: left
+:toclevels: 3
+:sectnums:
+:snippets: {snippets}
+
+== Introdução
+
+Esta API permite o gerenciamento de tarefas, incluindo criação, consulta, atualização e remoção.
+
+== Modelo de Dados
+
+=== Task
+
+|===
+| Campo        | Tipo    | Descrição
+
+| id           | String  | Identificador único da tarefa
+| title        | String  | Título da tarefa
+| description  | String  | Descrição detalhada
+| status       | String  | Status da tarefa (ex: PENDING, COMPLETED)
+|===
+
+---
+
+== Criar Tarefa
+
+Cria uma nova tarefa.
+
+=== Requisição
+
+include::{snippets}/create-task/curl-request.adoc[]
+
+=== Corpo da Requisição
+
+include::{snippets}/create-task/request-body.adoc[]
+
+=== Campos da Requisição
+
+include::{snippets}/create-task/request-fields.adoc[]
+
+=== Resposta
+
+include::{snippets}/create-task/http-response.adoc[]
+
+=== Corpo da Resposta
+
+include::{snippets}/create-task/response-body.adoc[]
+
+=== Campos da Resposta
+
+include::{snippets}/create-task/response-fields.adoc[]
+
+---
+
+== Buscar Tarefa por ID
+
+Retorna uma tarefa específica.
+
+=== Requisição
+
+include::{snippets}/get-task-by-id/curl-request.adoc[]
+
+=== Parâmetros de Caminho
+
+include::{snippets}/get-task-by-id/path-parameters.adoc[]
+
+=== Resposta
+
+include::{snippets}/get-task-by-id/http-response.adoc[]
+
+=== Corpo da Resposta
+
+include::{snippets}/get-task-by-id/response-body.adoc[]
+
+=== Campos da Resposta
+
+include::{snippets}/get-task-by-id/response-fields.adoc[]
+
+---
+
+== Códigos de Status
+
+|===
+| Código | Descrição
+
+| 200 OK       | Requisição executada com sucesso
+| 201 Created  | Recurso criado com sucesso
+| 204 No Content | Recurso removido com sucesso
+| 400 Bad Request | Erro de validação
+| 404 Not Found | Recurso não encontrado
+|===
+
+---
+
+== Observações
+
+- Todos os endpoints retornam JSON
+- Datas devem estar no formato ISO-8601
+- O campo `status` deve seguir os valores definidos no backend
