@@ -8,27 +8,27 @@ The track starts with architecture foundations and progressively moves through w
 
 ## Modules
 
-- `00-domain-driven-design/`  
+- [`00-domain-driven-design`](00-domain-driven-design/README.md)  
   DDD foundations with a catalog domain and no web layer.
-- `01-spring-web/`  
+- [`01-spring-web`](01-spring-web/README.md)  
   REST API design with Spring Web and API documentation with Spring REST Docs.
-- `02-spring-data/`  
+- [`02-spring-data`](02-spring-data/README.md)  
   Data access in a multi-context application using MySQL, MongoDB, Redis, and PostgreSQL.
-- `03-spring-security/`  
+- [`03-spring-security`](03-spring-security/README.md)  
   Authentication and authorization with Spring Security in a proposal management API.
-- `04-spring-cloud-openfeign/`  
+- [`04-spring-cloud-openfeign`](04-spring-cloud-openfeign/README.md)  
   External service integration (KYC/AML) using Spring Cloud OpenFeign and resilience patterns.
-- `05-spring-ai/`  
+- [`05-spring-ai`](05-spring-ai/README.md)  
   Final project using Spring AI for speech-to-text, tool calling, and text-to-speech.
 
 ## Recommended Study Order
 
-1. `00-domain-driven-design`
-2. `01-spring-web`
-3. `02-spring-data`
-4. `03-spring-security`
-5. `04-spring-cloud-openfeign`
-6. `05-spring-ai`
+1. [`00-domain-driven-design`](00-domain-driven-design/README.md)
+2. [`01-spring-web`](01-spring-web/README.md)
+3. [`02-spring-data`](02-spring-data/README.md)
+4. [`03-spring-security`](03-spring-security/README.md)
+5. [`04-spring-cloud-openfeign`](04-spring-cloud-openfeign/README.md)
+6. [`05-spring-ai`](05-spring-ai/README.md)
 
 ---
 
@@ -133,4 +133,4 @@ cd 01-spring-web
 ./gradlew test
 ```
 
-For module-specific details, always check that module's `README.md`.
+For module-specific details, always check each module README from the links above.

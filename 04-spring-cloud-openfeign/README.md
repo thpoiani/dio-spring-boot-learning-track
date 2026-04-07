@@ -48,12 +48,12 @@ Primary flow:
 
 Common architecture concepts are documented in the root README:
 
-- DDD layers: `../README.md#ddd-layered-architecture`
-- Class vs record: `../README.md#java-class-vs-java-record-in-domain-modeling`
-- Strong typed identifiers: `../README.md#strong-typed-identifiers`
-- Repository pattern: `../README.md#repository-pattern`
-- Use cases and Clean Architecture: `../README.md#use-cases-and-clean-architecture`
-- Docker Compose support: `../README.md#docker-compose-support-in-development`
+- [DDD layers](../README.md#ddd-layered-architecture)
+- [Class vs record](../README.md#java-class-vs-java-record-in-domain-modeling)
+- [Strong typed identifiers](../README.md#strong-typed-identifiers)
+- [Repository pattern](../README.md#repository-pattern)
+- [Use cases and Clean Architecture](../README.md#use-cases-and-clean-architecture)
+- [Docker Compose support](../README.md#docker-compose-support-in-development)
 
 ## Mockoon Setup (Local API Simulation)
 
@@ -67,7 +67,7 @@ This module can simulate external KYC and AML services locally using Mockoon.
 
 ### How to install Mockoon
 
-- Go to the official website: `https://mockoon.com/`
+- Go to the official website: https://mockoon.com/
 - Download the Desktop app for your OS and install it.
 - If you prefer CLI usage, use the installation instructions from the official Mockoon docs.
 

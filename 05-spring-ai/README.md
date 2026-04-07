@@ -46,23 +46,23 @@ Primary flow:
 
 ## Spring AI Documentation
 
-- Spring AI Reference: `https://docs.spring.io/spring-ai/reference/index.html`
-- ChatModel API: `https://docs.spring.io/spring-ai/reference/api/chatmodel.html`
-- ChatClient API: `https://docs.spring.io/spring-ai/reference/api/chatclient.html`
-- Tools API: `https://docs.spring.io/spring-ai/reference/api/tools.html`
-- Audio Transcriptions API: `https://docs.spring.io/spring-ai/reference/api/audio/transcriptions.html`
-- Audio Speech API: `https://docs.spring.io/spring-ai/reference/api/audio/speech.html`
+- Spring AI Reference: https://docs.spring.io/spring-ai/reference/index.html
+- ChatModel API: https://docs.spring.io/spring-ai/reference/api/chatmodel.html
+- ChatClient API: https://docs.spring.io/spring-ai/reference/api/chatclient.html
+- Tools API: https://docs.spring.io/spring-ai/reference/api/tools.html
+- Audio Transcriptions API: https://docs.spring.io/spring-ai/reference/api/audio/transcriptions.html
+- Audio Speech API: https://docs.spring.io/spring-ai/reference/api/audio/speech.html
 
 ## Shared Architecture References
 
 Common architecture concepts are documented in the root README:
 
-- DDD layers: `../README.md#ddd-layered-architecture`
-- Class vs record: `../README.md#java-class-vs-java-record-in-domain-modeling`
-- Strong typed identifiers: `../README.md#strong-typed-identifiers`
-- Repository pattern: `../README.md#repository-pattern`
-- Use cases and Clean Architecture: `../README.md#use-cases-and-clean-architecture`
-- Docker Compose support: `../README.md#docker-compose-support-in-development`
+- [DDD layers](../README.md#ddd-layered-architecture)
+- [Class vs record](../README.md#java-class-vs-java-record-in-domain-modeling)
+- [Strong typed identifiers](../README.md#strong-typed-identifiers)
+- [Repository pattern](../README.md#repository-pattern)
+- [Use cases and Clean Architecture](../README.md#use-cases-and-clean-architecture)
+- [Docker Compose support](../README.md#docker-compose-support-in-development)
 
 ## How to Run
 

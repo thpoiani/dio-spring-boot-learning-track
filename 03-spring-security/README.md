@@ -21,9 +21,9 @@ Typical flow:
 
 ## Project Structure
 
-~~- `src/main/java/dio/proposalmanagement/auth`
+- `src/main/java/dio/proposalmanagement/auth`
   - Security configuration and user integration.
-- `src/main/java/dio/proposalmanagement/proposal/domain`~~
+- `src/main/java/dio/proposalmanagement/proposal/domain`
   - Proposal model and domain contracts.
 - `src/main/java/dio/proposalmanagement/proposal/application`
   - Use cases and listing strategies.
@@ -52,12 +52,12 @@ Typical flow:
 
 Common architecture concepts are documented in the root README:
 
-- DDD layers: `../README.md#ddd-layered-architecture`
-- Class vs record: `../README.md#java-class-vs-java-record-in-domain-modeling`
-- Strong typed identifiers: `../README.md#strong-typed-identifiers`
-- Repository pattern: `../README.md#repository-pattern`
-- Use cases and Clean Architecture: `../README.md#use-cases-and-clean-architecture`
-- Docker Compose support: `../README.md#docker-compose-support-in-development`
+- [DDD layers](../README.md#ddd-layered-architecture)
+- [Class vs record](../README.md#java-class-vs-java-record-in-domain-modeling)
+- [Strong typed identifiers](../README.md#strong-typed-identifiers)
+- [Repository pattern](../README.md#repository-pattern)
+- [Use cases and Clean Architecture](../README.md#use-cases-and-clean-architecture)
+- [Docker Compose support](../README.md#docker-compose-support-in-development)
 
 ## How to Run
 
