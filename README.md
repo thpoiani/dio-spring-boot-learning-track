@@ -4,6 +4,8 @@ This repository contains a DIO Spring Boot learning track organized as increment
 
 The track starts with architecture foundations and progressively moves through web APIs, data access, security, service integration, and AI-enabled workflows.
 
+<img width="2752" height="1536" alt="unnamed" src="https://github.com/user-attachments/assets/a7bcbe19-4d0c-4395-8696-8c64be22764f" />
+
 ## Modules
 
 - `00-domain-driven-design/`  
